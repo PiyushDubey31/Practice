@@ -2,7 +2,12 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import User from './user'
 import UserCard from '../component/usercard'
+import { Provider } from 'react-redux'
+import { applyMiddleware, createStore } from 'redux'
+import { userReducer } from '../store/reducers/userReducer'
+import thunk from 'redux-thunk'
 
+const store =createStore(userReducer,applyMiddleware(thunk));
 
 export default function Home(props) {
   const card=[
@@ -24,11 +29,14 @@ export default function Home(props) {
     },
 
   ]
+
   return (
+     <Provider store={store}>
     
     <div className={styles.container}>
      <h1>welcome piyush dubey to new project</h1>
      {/* <User name="piyush dubey" age="23" /> */}
+    
      {
        card.map((item,index)=>(
 
@@ -36,9 +44,11 @@ export default function Home(props) {
        ))
      }
      
+     
 
   
       
     </div>
+  </Provider>
   )
 }
